@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 export class App extends Component<unknown, unknown> {
   render() {
