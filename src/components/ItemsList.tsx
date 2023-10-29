@@ -44,7 +44,9 @@ export class ItemsList extends Component<IItemsListProps, IItemsListState> {
           ))}
         </div>
         <div className="list">
-          {this.state.selectedItem && this.props.items.length ? this.state.selectedItem.opening_crawl : ''}
+          {this.state.selectedItem && this.props.items.length
+            ? this.state.selectedItem.opening_crawl
+            : ''}
         </div>
       </div>
     );

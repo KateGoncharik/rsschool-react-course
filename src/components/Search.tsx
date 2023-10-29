@@ -24,10 +24,14 @@ export class Search extends Component<ISearchProps, ISearchState> {
     return (
       <form className="form">
         <input
-            type="text"
+          type="text"
           className="form__input"
-          onInput={(event: FormEvent) => this.setState({ searchValue: event.target.value.replace(/[^a-z]/gi, '') })}
-            value={this.state.searchValue}
+          onInput={(event: FormEvent) =>
+            this.setState({
+              searchValue: event.target.value.replace(/[^a-z]/gi, ''),
+            })
+          }
+          value={this.state.searchValue}
           placeholder="Type any value"
           pattern={/[a-zA-Z0-9]/i}
         />
