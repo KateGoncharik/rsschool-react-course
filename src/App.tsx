@@ -4,6 +4,10 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ErrorBoundary from './components/ErrorBoundary';
 
+const a;
+const b;
+console.log('foo');
+
 export class App extends Component<unknown, unknown> {
   render() {
     return (
