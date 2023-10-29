@@ -8,11 +8,8 @@ interface IErrorBoundaryState {
   hasError: boolean;
 }
 
-export default class ErrorBoundary extends Component<
-  IErrorBoundaryProps,
-  IErrorBoundaryState
-> {
-  constructor(props) {
+export default class ErrorBoundary extends Component<IErrorBoundaryProps, IErrorBoundaryState> {
+  constructor(props: IErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }

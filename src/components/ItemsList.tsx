@@ -10,7 +10,7 @@ export interface IItemsListState {
 }
 
 export class ItemsList extends Component<IItemsListProps, IItemsListState> {
-  constructor(props) {
+  constructor(props: IItemsListProps) {
     super(props);
     this.state = {};
   }

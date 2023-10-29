@@ -1,4 +1,4 @@
-import { Component, FormEvent } from 'react';
+import {Component, FormEvent} from 'react';
 
 export interface ISearchProps {
   updateItemsCallback: (newSearchValue: string) => void;
@@ -10,14 +10,9 @@ export interface ISearchState {
 }
 
 export class Search extends Component<ISearchProps, ISearchState> {
-  constructor(props) {
+  constructor(props: ISearchProps) {
     super(props);
     this.state = { searchValue: '' };
-  }
-
-  handleSearch(event: MouseEvent): void {
-    event.preventDefault();
-    this.props.updateItemsCallback(this.state.searchValue);
   }
 
   render() {
@@ -28,17 +23,20 @@ export class Search extends Component<ISearchProps, ISearchState> {
           className="form__input"
           onInput={(event: FormEvent) =>
             this.setState({
-              searchValue: event.target.value.replace(/[^a-z]/gi, ''),
+              searchValue: (event.target as HTMLInputElement).value.replace(/[^a-z]/gi, ''),
             })
           }
           value={this.state.searchValue}
           placeholder="Type any value"
-          pattern={/[a-zA-Z0-9]/i}
+          pattern="/[a-zA-Z0-9]/i"
         />
         <button
           type="submit"
           className="form__button"
-          onClick={(event: MouseEvent) => this.handleSearch(event)}
+          onClick={(event) => {
+              event.stopPropagation();
+              this.props.updateItemsCallback(this.state.searchValue);
+          }}
         >
           {this.props.loading ? (
             <span className="loader" />

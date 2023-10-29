@@ -9,8 +9,11 @@ interface IHomeState {
   simulateRenderError?: boolean;
 }
 
+interface IHomeProps {
+}
+
 export default class Home extends Component<unknown, IHomeState> {
-  constructor(props) {
+  constructor(props: IHomeProps) {
     super(props);
     this.state = {
       items: [],
