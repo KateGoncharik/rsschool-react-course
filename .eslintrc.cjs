@@ -48,7 +48,6 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'max-classes-per-file': 'off',
     'react/prefer-stateless-function': 'off',
-    'react/jsx-no-bind': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'react/no-did-update-set-state': 'off',
