@@ -1,0 +1,97 @@
+$black: #000000;
+$cornflower-lilac: #ffaea9;
+$salmon: #ff7b73;
+$white: #ffffff;
+$your-pink: #ffcccc;
+
+html {
+    height: 95%;
+}
+
+body {
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    background-color: $salmon;
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.form {
+    height: 4.25em;
+    border-radius: 6.25em;
+    background-color: $white;
+    width: 80%;
+    padding: 0.625em;
+    box-sizing: border-box;
+    box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+
+    &__button {
+        color: inherit;
+        padding: 0;
+        height: 100%;
+        width: 5em;
+        background-color: $salmon;
+    }
+}
+
+.form__input,
+.form__button {
+    font: inherit;
+    border: 0;
+    outline: 0;
+    border-radius: 5em;
+    box-sizing: border-box;
+}
+
+.form__input {
+    font-size: 1.75em;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.7);
+}
+
+.form__input {
+    color: $your-pink;
+    height: 100%;
+    width: 100%;
+    padding: 0 0.714em;
+
+    &::placeholder {
+        color: currentColor;
+    }
+
+    &:required:valid {
+        color: $salmon;
+
+        + .form__buttonLabel {
+            color: $white;
+
+            &::before {
+                pointer-events: initial;
+            }
+        }
+    }
+}
+
+.list {
+    margin-top: 1em;
+    height: 80%;
+    border-radius: 3.25em;
+    background-color: $white;
+    width: 80%;
+    padding: 0.625em;
+    box-sizing: border-box;
+    box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+}
+
+
