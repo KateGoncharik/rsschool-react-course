@@ -15,6 +15,12 @@ export class Search extends Component<ISearchProps, ISearchState> {
     this.state = { searchValue: '' };
   }
 
+  componentDidMount() {
+    this.setState({
+      searchValue: localStorage.getItem('searchValue') as string,
+    });
+  }
+
   render() {
     return (
       <form className="form">

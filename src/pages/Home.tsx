@@ -21,7 +21,7 @@ export default class Home extends Component<unknown, IHomeState> {
   }
 
   public componentDidMount(): void {
-    this.handleSearch();
+    this.handleSearch((localStorage.getItem('searchValue') as string) || '');
   }
 
   public getStorageData(): Map<string, Film[]> {
@@ -38,6 +38,8 @@ export default class Home extends Component<unknown, IHomeState> {
     if (this.state.loading) {
       return;
     }
+
+    localStorage.setItem('searchValue', searchValue || '');
 
     this.setState({
       items: [],
