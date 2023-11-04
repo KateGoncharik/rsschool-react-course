@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+import './ErrorBoundary.scss';
 
 interface IErrorBoundaryProps {
   children: ReactNode;
@@ -29,10 +30,12 @@ export default class ErrorBoundary extends Component<
     if (this.state.hasError) {
       return (
         <>
-          <span className="custom-error-message">Error boundary triggered</span>
+          <span className="error-boundary__message">
+            Error boundary triggered
+          </span>
           <button
             type="button"
-            className="form__button _error"
+            className="button _error"
             onClick={() => this.setState({ hasError: false })}
           >
             Return

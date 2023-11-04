@@ -1,0 +1,22 @@
+@import 'src/colors';
+
+.organization-details {
+  width: 60%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    color: $salmon;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  &__info {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+}

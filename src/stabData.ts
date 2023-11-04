@@ -1,0 +1,16 @@
+export const STABDATA = {
+  uid: 'ORMA0000199356',
+  name: 'Akira Advanced Genetics Research Unit',
+  government: false,
+  intergovernmentalOrganization: false,
+  researchOrganization: true,
+  sportOrganization: false,
+  medicalOrganization: true,
+  militaryOrganization: false,
+  militaryUnit: false,
+  governmentAgency: false,
+  lawEnforcementAgency: false,
+  prisonOrPenalColony: false,
+  mirror: false,
+  alternateReality: false,
+};
