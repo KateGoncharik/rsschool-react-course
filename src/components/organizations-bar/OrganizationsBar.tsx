@@ -38,11 +38,11 @@ export function OrganizationsBar() {
         loading={loading}
         data={pageState}
         updatePagesData={(newPage, newSize) => {
-          setPageState({
-            ...pageState,
-            pageNumber: newPage,
-            pageSize: newSize,
-          });
+          setPageState(prevState => ({
+              ...pageState,
+              pageNumber: newPage,
+              pageSize: newSize,
+          }));
         }}
       />
     </aside>

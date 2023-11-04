@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IOrganization } from '../../models/organization.model';
 import './OrganizationsList.scss';
 import { Loader, LoaderColor } from '../loader/Loader';
+import { NavLink } from "react-router-dom";
 
 export interface IOrganizationsListProps {
   loading: boolean;
@@ -31,15 +32,16 @@ export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
         <Loader color={LoaderColor.SALMON} />
       ) : (
         items?.map((item: IOrganization) => (
-          <div
+          <NavLink
+              to={'details/' + item.uid}
             className={`organizations-list-item ${
               state.selectedItem?.name === item.name ? '_active' : ''
             }`}
-            // onClick={() => setState({ selectedItem: item })}
+            onClick={() => setState({ selectedItem: item })}
             key={item.name}
           >
             {item.name}
-          </div>
+          </NavLink>
         ))
       )}
     </div>

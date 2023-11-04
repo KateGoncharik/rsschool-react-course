@@ -40,9 +40,8 @@ export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
       <div className="pages-bar__state">
         <button
             type="button"
-            className={
-            'button pages-bar__button' + (state?.firstPage ? ' _disable' : '')
-          }
+            disabled={state?.firstPage}
+            className="button pages-bar__button"
           onClick={() => changePage('-')}
         >
           <div className="pages-bar__icon _arrow" />

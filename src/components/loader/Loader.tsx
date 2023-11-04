@@ -6,7 +6,7 @@ export enum LoaderColor {
 }
 
 export interface ILoaderProps {
-  color: LoaderColor;
+  color?: LoaderColor;
 }
 export function Loader({ color }: ILoaderProps) {
   return <span className={'loader _' + (color || LoaderColor.WHITE)} />;
