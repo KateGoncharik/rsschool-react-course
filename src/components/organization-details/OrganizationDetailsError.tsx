@@ -1,3 +1,3 @@
-export function OrganizationDetailsError() {
-  return <div>error</div>;
+export default function OrganizationDetailsError() {
+  return <div>No such organization</div>;
 }

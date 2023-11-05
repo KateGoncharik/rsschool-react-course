@@ -7,8 +7,8 @@ import {
 } from 'react-router-dom';
 import Main from './pages/Main';
 import NotFound from './pages/NotFound';
-import { OrganizationDetails } from './components/organization-details/OrganizationDetails';
-import { OrganizationDetailsError } from './components/organization-details/OrganizationDetailsError';
+import OrganizationDetailsError from './components/organization-details/OrganizationDetailsError';
+import OrganizationDetails from './components/organization-details/OrganizationDetails';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +25,6 @@ const router = createBrowserRouter(
   )
 );
 
-export function App() {
+export default function App() {
   return <RouterProvider router={router} />;
 }

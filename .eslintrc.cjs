@@ -54,5 +54,8 @@ module.exports = {
     'no-console': 'off',
     'class-methods-use-this': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    'no-unsafe-optional-chaining': 'off',
+    'prefer-template': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
   },
 };

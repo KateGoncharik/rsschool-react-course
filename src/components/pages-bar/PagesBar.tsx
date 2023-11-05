@@ -11,7 +11,7 @@ export interface IPagesBarProps {
 export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
   const [size, setSize] = useState(data?.pageSize);
 
-  const changePage = (type: '+' | '-') => {
+  const changePage = (type: '+' | '-'): void => {
     const newPage: number =
       type === '+' ? data.pageNumber + 1 : data.pageNumber - 1;
     if (!loading) {

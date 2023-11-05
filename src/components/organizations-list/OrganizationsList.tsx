@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { IOrganization } from '../../models/organization.model';
-import './OrganizationsList.scss';
-import { Loader, LoaderColor } from '../loader/Loader';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { IOrganization } from '../../models/organization.model';
+import { Loader, LoaderColor } from '../loader/Loader';
+import './OrganizationsList.scss';
 
 export interface IOrganizationsListProps {
   loading: boolean;
@@ -19,7 +19,7 @@ export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
     setSelectedItem(items.find((item) => item.uid === urlUid) as IOrganization);
   }, [items, location]);
 
-  const getLinkUrl = (uid) => {
+  const getLinkUrl = (uid): string => {
     return (
       'details/?' +
       `pageNumber=${searchParams.get('pageNumber')}` +

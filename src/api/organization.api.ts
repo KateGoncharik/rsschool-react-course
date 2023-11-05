@@ -12,9 +12,9 @@ class OrganizationApi {
     search: string = ''
   ): Promise<IOrganizationsResponse> {
     const response = await fetch(
-      `${this.baseUrl}/search?pageNumber=${page}&pageSize=${size}`
+      `${this.baseUrl}/search?pageNumber=${page}&pageSize=${size}&search=${search}`
     );
-    return await response.json();
+    return response.json();
   }
 
   async getDetails(uid: string): Promise<IOrganization> {

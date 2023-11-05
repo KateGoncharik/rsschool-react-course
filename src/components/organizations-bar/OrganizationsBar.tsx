@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { OrganizationsList } from '../organizations-list/OrganizationsList';
 import { PagesBar } from '../pages-bar/PagesBar';
 import './OrganizationsBar.scss';
-import { useEffect, useState } from 'react';
 import organizationApi from '../../api/organization.api';
 import { IOrganizationsResponse, IPage } from '../../models/organization.model';
 import { Search } from '../search/Search';
-import { useLocation, useSearchParams } from 'react-router-dom';
 
-export function OrganizationsBar() {
+export default function OrganizationsBar() {
   const [boundaryError, setBoundaryError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [organizations, setOrganizations] = useState([]);
@@ -37,13 +37,18 @@ export function OrganizationsBar() {
         setOrganizations(response.organizations);
         setPageState(response.page);
         setSearchParams((prev) => {
-          const newParams = {
+          const newParams: {
+            pageNumber: string;
+            pageSize: string;
+            search: string;
+            uid?: string;
+          } = {
             pageNumber: (response.page.pageNumber + 1) as string,
             pageSize: response.page.pageSize as string,
             search: localStorage.getItem('searchValue'),
           };
           if (prev.get('uid')) {
-            newParams['uid'] = prev.get('uid');
+            newParams.uid = prev.get('uid');
           }
           return newParams;
         });

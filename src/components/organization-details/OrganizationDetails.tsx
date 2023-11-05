@@ -4,7 +4,7 @@ import './OrganizationDetails.scss';
 import organizationApi from '../../api/organization.api';
 import { Loader, LoaderColor } from '../loader/Loader';
 
-export function OrganizationDetails() {
+export default function OrganizationDetails() {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [organization, setOrganization] = useState(null);
@@ -24,16 +24,16 @@ export function OrganizationDetails() {
     }
   }, [id]);
 
-  const convertKeyToInfoFormat = (key: string) => {
+  const convertKeyToInfoFormat = (key: string): string => {
     const copyKey = key[0].toUpperCase() + key.slice(1);
     let result = '';
-    for (let char of copyKey) {
+    [...copyKey].forEach((char: string) => {
       result += char === char.toUpperCase() ? ' ' + char : char;
-    }
+    });
     return result.trim();
   };
 
-  const getLinkUrl = () => {
+  const getLinkUrl = (): string => {
     return (
       `/?pageNumber=${searchParams.get('pageNumber')}` +
       `&pageSize=${searchParams.get('pageSize')}` +
