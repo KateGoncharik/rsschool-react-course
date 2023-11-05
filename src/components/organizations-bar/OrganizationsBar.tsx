@@ -2,12 +2,13 @@ import { OrganizationsList } from '../organizations-list/OrganizationsList';
 import { PagesBar } from '../pages-bar/PagesBar';
 import './OrganizationsBar.scss';
 import { useEffect, useState } from 'react';
-import starShipsApi from '../../starships-api';
+import organizationApi from '../../api/organization.api';
 import { IOrganizationsResponse, IPage } from '../../models/organization.model';
 import { Search } from '../search/Search';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 export function OrganizationsBar() {
+  const [boundaryError, setBoundaryError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [organizations, setOrganizations] = useState([]);
   const [searchValue, setSearchValue] = useState(searchParams.get('search'));
@@ -23,14 +24,14 @@ export function OrganizationsBar() {
           ? queryPageNumberParam - 1
           : 0,
       pageSize: queryPageSizeParam || 10,
-      firstPage: false,
-      lastPage: false,
+      firstPage: true,
+      lastPage: true,
     };
   });
 
   useEffect(() => {
     setLoading(true);
-    starShipsApi
+    organizationApi
       .getItems(pageState.pageNumber, pageState.pageSize, searchValue)
       .then((response: IOrganizationsResponse) => {
         setOrganizations(response.organizations);
@@ -39,18 +40,20 @@ export function OrganizationsBar() {
           const newParams = {
             pageNumber: (response.page.pageNumber + 1) as string,
             pageSize: response.page.pageSize as string,
+            search: localStorage.getItem('searchValue'),
           };
           if (prev.get('uid')) {
             newParams['uid'] = prev.get('uid');
-          }
-          if (prev.get('search')) {
-            newParams['search'] = prev.get('search');
           }
           return newParams;
         });
       })
       .finally(() => setLoading(false));
   }, [pageState.pageNumber, pageState.pageSize, searchValue]);
+
+  if (boundaryError) {
+    throw Error('Boundary Error');
+  }
 
   return (
     <article className="organizations-bar">
@@ -61,7 +64,11 @@ export function OrganizationsBar() {
             setSearchValue(newSearchValue)
           }
         />
-        <button type="button" className="button organizations-bar__error">
+        <button
+          type="button"
+          className="button organizations-bar__error"
+          onClick={() => setBoundaryError(true)}
+        >
           Throw error
         </button>
       </header>

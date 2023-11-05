@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IOrganization } from '../../models/organization.model';
 import './OrganizationsList.scss';
 import { Loader, LoaderColor } from '../loader/Loader';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 
 export interface IOrganizationsListProps {
   loading: boolean;
@@ -12,11 +12,12 @@ export interface IOrganizationsListProps {
 export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
   const [searchParams] = useSearchParams();
   const [selectedItem, setSelectedItem] = useState<IOrganization>();
+  const location = useLocation();
 
   useEffect(() => {
     const urlUid: string = searchParams.get('uid');
     setSelectedItem(items.find((item) => item.uid === urlUid) as IOrganization);
-  }, [items]);
+  }, [items, location]);
 
   const getLinkUrl = (uid) => {
     return (

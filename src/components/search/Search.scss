@@ -6,12 +6,13 @@
     border-radius: 2em;
     background-color: white;
     width: 80%;
-    padding: 0.625em;
+    padding: 4px;
     box-sizing: border-box;
     box-shadow: 0 0.125em 0.3125em rgba(0, 0, 0, 0.3);
     display: flex;
 
     &__input {
+      border-radius: 18px;
       font-size: 1.75em;
       color: $your-pink;
       height: 100%;

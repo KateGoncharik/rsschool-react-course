@@ -1,7 +1,7 @@
 import {
   IOrganization,
   IOrganizationsResponse,
-} from './models/organization.model';
+} from '../models/organization.model';
 
 class OrganizationApi {
   public baseUrl: string = 'https://stapi.co/api/v1/rest/organization';
@@ -24,6 +24,6 @@ class OrganizationApi {
   }
 }
 
-const starShipsApi = new OrganizationApi();
+const organizationApi = new OrganizationApi();
 
-export default starShipsApi;
+export default organizationApi;

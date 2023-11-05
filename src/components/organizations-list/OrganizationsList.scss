@@ -5,6 +5,7 @@
   height: 100%;
   border-radius: 1em;
   padding: 12px;
+  overflow: auto;
 
   &._loading {
     display: flex;

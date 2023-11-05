@@ -3,16 +3,11 @@ import { FormEvent, useEffect, useState } from 'react';
 
 export interface ISearchProps {
   updateItemsCallback?: (newSearchValue: string) => void;
-  loading?: boolean;
   searchValue?: string;
 }
 
-export function Search({
-  updateItemsCallback,
-  loading,
-  searchValue,
-}: ISearchProps) {
-  const [search, setSearch] = useState<string>();
+export function Search({ updateItemsCallback, searchValue }: ISearchProps) {
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => setSearch(searchValue), [searchValue]);
 
@@ -33,7 +28,7 @@ export function Search({
         type="submit"
         className="search__form__button button"
         onClick={(event) => {
-          event.stopPropagation();
+          event.preventDefault();
           updateItemsCallback(search);
         }}
       >

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import './OrganizationDetails.scss';
-import starShipsApi from '../../starships-api';
+import organizationApi from '../../api/organization.api';
 import { Loader, LoaderColor } from '../loader/Loader';
 
 export function OrganizationDetails() {
@@ -14,7 +14,7 @@ export function OrganizationDetails() {
     if (id) {
       setLoading(true);
       try {
-        starShipsApi
+        organizationApi
           .getDetails(id)
           .then((IOrganization) => setOrganization(IOrganization))
           .finally(() => setLoading(false));
@@ -35,8 +35,7 @@ export function OrganizationDetails() {
 
   const getLinkUrl = () => {
     return (
-      'details/?' +
-      `pageNumber=${searchParams.get('pageNumber')}` +
+      `/?pageNumber=${searchParams.get('pageNumber')}` +
       `&pageSize=${searchParams.get('pageSize')}` +
       `&search=${searchParams.get('search')}`
     );
@@ -51,15 +50,23 @@ export function OrganizationDetails() {
           <NavLink className="organization-details__cross" to={getLinkUrl()} />
           <div className="organization-details__title">{organization.name}</div>
           <div className="organization-details__info">
-            {Object.keys(organization).map((dataKey: string) => (
-              // ['uid', 'name'].includes(dataKey) || !state[dataKey]
-              //     ? ''
-              //     :
-              <div key={organization.uid + dataKey}>
-                {convertKeyToInfoFormat(dataKey)} -{' '}
-                {organization[dataKey] ? 'Yes' : 'No'}
-              </div>
-            ))}
+            {Object.keys(organization).map((dataKey: string) =>
+              ['uid', 'name'].includes(dataKey) ? (
+                ''
+              ) : (
+                <div key={organization.uid + dataKey}>
+                  {convertKeyToInfoFormat(dataKey)}-
+                  <span
+                    className={
+                      'organization-details__info' +
+                      (organization[dataKey] ? '-true' : '-false')
+                    }
+                  >
+                    {organization[dataKey] ? 'Yes' : 'No'}
+                  </span>
+                </div>
+              )
+            )}
           </div>
         </>
       )}

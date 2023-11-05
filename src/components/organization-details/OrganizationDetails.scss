@@ -35,5 +35,10 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+
+    &-true {
+      color: $salmon;
+      font-weight: bold;
+    }
   }
 }
