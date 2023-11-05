@@ -39,17 +39,17 @@ export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
     <div className="pages-bar">
       <div className="pages-bar__state">
         <button
-            type="button"
-            disabled={state?.firstPage}
-            className="button pages-bar__button"
+          type="button"
+          disabled={state?.firstPage}
+          className="button pages-bar__button"
           onClick={() => changePage('-')}
         >
           <div className="pages-bar__icon _arrow" />
         </button>
         <span className="pages-bar__page">{state?.pageNumber + 1}</span>
         <button
-            type="button"
-            className={
+          type="button"
+          className={
             'button pages-bar__button' + (state?.lastPage ? ' _disable' : '')
           }
           onClick={() => changePage('+')}
@@ -67,7 +67,7 @@ export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
           }
         />
         <button
-            type="button"
+          type="button"
           className="button"
           onClick={(event) => {
             event.stopPropagation();

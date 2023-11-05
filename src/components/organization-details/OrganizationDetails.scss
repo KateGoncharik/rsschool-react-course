@@ -2,10 +2,22 @@
 
 .organization-details {
   width: 60%;
+  flex-grow: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
+  position: relative;
+  padding: 0 2rem;
+
+  &__cross {
+    width: 20px;
+    height: 20px;
+    background-image: url('/src/assets/icons/cross.svg');
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
 
   &._loading {
     justify-content: center;
@@ -15,6 +27,7 @@
     color: $salmon;
     font-size: 2rem;
     text-align: center;
+    margin-top: 4rem;
   }
 
   &__info {

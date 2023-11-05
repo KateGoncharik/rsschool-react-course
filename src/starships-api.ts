@@ -8,8 +8,8 @@ class OrganizationApi {
 
   async getItems(
     page: number,
-    size: number
-    // searchValue: string = ''
+    size: number,
+    search: string = ''
   ): Promise<IOrganizationsResponse> {
     const response = await fetch(
       `${this.baseUrl}/search?pageNumber=${page}&pageSize=${size}`

@@ -17,6 +17,11 @@
       height: 100%;
       width: 100%;
       padding: 0 0.714em;
+      border: white;
+
+      &:focus {
+        border: white;
+      }
 
       &::placeholder {
         color: currentColor;
@@ -38,9 +43,7 @@
     &__button {
       color: white;
       font-weight: bold;
-      padding: 0;
-      height: 100%;
-      width: 5em;
+      width: 7em;
       background-color: $salmon;
       display: flex;
       justify-content: center;

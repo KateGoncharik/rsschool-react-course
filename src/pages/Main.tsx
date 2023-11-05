@@ -21,7 +21,7 @@ export default function Main() {
   return (
     <>
       <OrganizationsBar />
-      <Outlet/>
+      <Outlet />
     </>
   );
 }
