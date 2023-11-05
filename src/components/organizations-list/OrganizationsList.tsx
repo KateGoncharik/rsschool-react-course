@@ -29,10 +29,16 @@ export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
     );
   };
   return (
-    <div className={'organizations-list' + (loading ? ' _loading' : '')}>
+    <div
+      className={
+        'organizations-list' +
+        (loading ? ' _loading' : '') +
+        (!items?.length ? ' _empty' : '')
+      }
+    >
       {loading ? (
         <Loader color={LoaderColor.SALMON} />
-      ) : (
+      ) : items?.length ? (
         items?.map((item: IOrganization) => (
           <NavLink
             to={getLinkUrl(item.uid)}
@@ -45,6 +51,8 @@ export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
             {item.name}
           </NavLink>
         ))
+      ) : (
+        'No items'
       )}
     </div>
   );

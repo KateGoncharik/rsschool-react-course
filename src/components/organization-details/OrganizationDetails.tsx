@@ -16,7 +16,13 @@ export default function OrganizationDetails() {
       try {
         organizationApi
           .getDetails(id)
-          .then((IOrganization) => setOrganization(IOrganization))
+          .then((response) => {
+            if (response) {
+              setOrganization(response);
+            } else {
+              throw new Error(`Can not find organization with uid=${id}`);
+            }
+          })
           .finally(() => setLoading(false));
       } catch {
         throw new Error(`Can not find organization with uid=${id}`);

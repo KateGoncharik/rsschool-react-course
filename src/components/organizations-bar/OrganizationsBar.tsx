@@ -4,15 +4,20 @@ import { OrganizationsList } from '../organizations-list/OrganizationsList';
 import { PagesBar } from '../pages-bar/PagesBar';
 import './OrganizationsBar.scss';
 import organizationApi from '../../api/organization.api';
-import { IOrganizationsResponse, IPage } from '../../models/organization.model';
+import {
+  IOrganization,
+  IOrganizationsResponse,
+  IPage,
+} from '../../models/organization.model';
 import { Search } from '../search/Search';
 
 export default function OrganizationsBar() {
   const [boundaryError, setBoundaryError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [organizations, setOrganizations] = useState([]);
-  const [searchValue, setSearchValue] = useState(searchParams.get('search'));
-  const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || ''
+  );
   const [pageState, setPageState] = useState<IPage>(() => {
     const queryPageNumberParam: number = searchParams.get(
       'pageNumber'
@@ -28,11 +33,22 @@ export default function OrganizationsBar() {
       lastPage: true,
     };
   });
+  let loading: boolean = false;
 
   useEffect(() => {
-    setLoading(true);
+    if (!loading) {
+      loading = true;
+      if (searchValue?.length) {
+        loadItem();
+      } else {
+        loadList();
+      }
+    }
+  }, [pageState.pageNumber, pageState.pageSize, searchValue]);
+
+  const loadList = (): void => {
     organizationApi
-      .getItems(pageState.pageNumber, pageState.pageSize, searchValue)
+      .getItems(pageState.pageNumber, pageState.pageSize)
       .then((response: IOrganizationsResponse) => {
         setOrganizations(response.organizations);
         setPageState(response.page);
@@ -45,7 +61,7 @@ export default function OrganizationsBar() {
           } = {
             pageNumber: (response.page.pageNumber + 1) as string,
             pageSize: response.page.pageSize as string,
-            search: localStorage.getItem('searchValue'),
+            search: localStorage.getItem('searchValue') || '',
           };
           if (prev.get('uid')) {
             newParams.uid = prev.get('uid');
@@ -53,8 +69,46 @@ export default function OrganizationsBar() {
           return newParams;
         });
       })
-      .finally(() => setLoading(false));
-  }, [pageState.pageNumber, pageState.pageSize, searchValue]);
+      .finally(() => {
+        loading = false;
+      });
+  };
+
+  const loadItem = () => {
+    organizationApi
+      .getDetails(searchValue)
+      .then((organization: IOrganization) => {
+        setOrganizations(organization ? [organization] : []);
+      })
+      .catch(() => setOrganizations([]))
+      .finally(() => {
+        setPageState((prev) => {
+          return {
+            ...prev,
+            pageNumber: 0,
+            firstPage: true,
+            lastPage: true,
+          };
+        });
+        setSearchParams((prev) => {
+          const newParams: {
+            pageNumber: string;
+            pageSize: string;
+            search: string;
+            uid?: string;
+          } = {
+            pageNumber: '1',
+            pageSize: prev.get('pageSize'),
+            search: localStorage.getItem('searchValue') || '',
+          };
+          if (prev.get('uid')) {
+            newParams.uid = prev.get('uid');
+          }
+          return newParams;
+        });
+        loading = false;
+      });
+  };
 
   if (boundaryError) {
     throw Error('Boundary Error');
@@ -65,9 +119,10 @@ export default function OrganizationsBar() {
       <header className="organizations-bar__header">
         <Search
           searchValue={searchValue}
-          updateItemsCallback={(newSearchValue) =>
-            setSearchValue(newSearchValue)
-          }
+          updateItemsCallback={(newSearchValue) => {
+            localStorage.setItem('searchValue', newSearchValue);
+            setSearchValue(newSearchValue);
+          }}
         />
         <button
           type="button"

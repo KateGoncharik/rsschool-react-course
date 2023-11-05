@@ -17,12 +17,10 @@ export function Search({ updateItemsCallback, searchValue }: ISearchProps) {
         type="text"
         className="search__form__input"
         onInput={(event: FormEvent) =>
-          setSearch(
-            (event.target as HTMLInputElement).value.replace(/[^a-z]/gi, '')
-          )
+          setSearch((event.target as HTMLInputElement).value)
         }
         value={search}
-        placeholder="Type any value"
+        placeholder="Type UID. Example: ORMA0000278954"
       />
       <button
         type="submit"

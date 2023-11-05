@@ -6,13 +6,9 @@ import {
 class OrganizationApi {
   public baseUrl: string = 'https://stapi.co/api/v1/rest/organization';
 
-  async getItems(
-    page: number,
-    size: number,
-    search: string = ''
-  ): Promise<IOrganizationsResponse> {
+  async getItems(page: number, size: number): Promise<IOrganizationsResponse> {
     const response = await fetch(
-      `${this.baseUrl}/search?pageNumber=${page}&pageSize=${size}&search=${search}`
+      `${this.baseUrl}/search?pageNumber=${page}&pageSize=${size}`
     );
     return response.json();
   }

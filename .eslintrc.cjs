@@ -57,5 +57,6 @@ module.exports = {
     'no-unsafe-optional-chaining': 'off',
     'prefer-template': 'off',
     '@typescript-eslint/no-unused-expressions': 'off',
+    'no-nested-ternary': 'off',
   },
 };
