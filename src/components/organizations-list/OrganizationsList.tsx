@@ -41,6 +41,7 @@ export function OrganizationsList({ loading, items }: IOrganizationsListProps) {
       ) : items?.length ? (
         items?.map((item: IOrganization) => (
           <NavLink
+            role="organizationListItem"
             to={getLinkUrl(item.uid)}
             className={`organizations-list-item ${
               selectedItem?.name === item.name ? '_active' : ''

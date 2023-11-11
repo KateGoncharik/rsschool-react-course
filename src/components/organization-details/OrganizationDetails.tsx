@@ -48,13 +48,21 @@ export default function OrganizationDetails() {
   };
 
   return (
-    <article className={'organization-details' + (loading ? ' _loading' : '')}>
+    <article
+      role="organizationDetails"
+      className={'organization-details' + (loading ? ' _loading' : '')}
+    >
       {loading ? (
         <Loader color={LoaderColor.SALMON} />
       ) : (
         <>
           <NavLink className="organization-details__cross" to={getLinkUrl()} />
-          <div className="organization-details__title">{organization.name}</div>
+          <div
+            role="organizationDetailsTitle"
+            className="organization-details__title"
+          >
+            {organization.name}
+          </div>
           <div className="organization-details__info">
             {Object.keys(organization).map((dataKey: string) =>
               ['uid', 'name'].includes(dataKey) ? (
