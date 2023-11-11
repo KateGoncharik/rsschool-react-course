@@ -1,6 +1,5 @@
 import { Component, ReactNode } from 'react';
-import './ErrorBoundary.scss';
-import { NavLink } from 'react-router-dom';
+import ErrorMessage from '../error-message/ErrorMessage';
 
 interface IErrorBoundaryProps {
   children: ReactNode;
@@ -30,18 +29,10 @@ export default class ErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <main className="error-boundary">
-          <span className="error-boundary__message">
-            Error boundary triggered
-          </span>
-          <NavLink
-            to="/"
-            className="error-boundary__link"
-            onClick={() => this.setState({ hasError: false })}
-          >
-            Return
-          </NavLink>
-        </main>
+        <ErrorMessage
+          message="Error boundary triggered"
+          callback={() => this.setState({ hasError: false })}
+        />
       );
     }
 
