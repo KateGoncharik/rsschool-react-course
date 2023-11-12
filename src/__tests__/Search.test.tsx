@@ -1,5 +1,3 @@
-import React from 'react';
-
 describe('Search component', () => {
   it('Verify that clicking the Search button saves the entered value to the local storage', () => {});
 

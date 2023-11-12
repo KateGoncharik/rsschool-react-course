@@ -1,4 +1,4 @@
-export const mockDetails = {
+const mockDetails = {
   uid: 'ORMA0000278954',
   name: '21st Street Mission (Los Angeles)',
   government: false,
@@ -15,3 +15,5 @@ export const mockDetails = {
   alternateReality: false,
   characters: [],
 };
+
+export default mockDetails;

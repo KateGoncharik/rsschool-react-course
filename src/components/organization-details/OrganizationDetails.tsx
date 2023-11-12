@@ -56,7 +56,7 @@ export default function OrganizationDetails() {
 
   return (
     <article
-      role="organizationDetails"
+      role="organization-details"
       className={'organization-details' + (loading ? ' _loading' : '')}
     >
       {loading ? (
@@ -64,12 +64,12 @@ export default function OrganizationDetails() {
       ) : (
         <>
           <NavLink
-            role="organizationDetailsCloseButton"
+            role="organization-details-close-button"
             className="organization-details__cross"
             to={getLinkUrl()}
           />
           <div
-            role="organizationDetailsTitle"
+            role="organization-details-title"
             className="organization-details__title"
           >
             {organization.name}
@@ -79,7 +79,7 @@ export default function OrganizationDetails() {
               ['uid', 'name'].includes(dataKey) ? (
                 ''
               ) : (
-                <div role="detailsParam" key={organization.uid + dataKey}>
+                <div role="details-param" key={organization.uid + dataKey}>
                   {convertKeyToInfoFormat(dataKey)}-
                   <span
                     role="detailsValue"

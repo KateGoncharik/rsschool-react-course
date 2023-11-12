@@ -1,12 +1,11 @@
-import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { vi } from 'vitest';
 import organizationApi from '../api/organization.api';
-import { mockDetails } from './mock/mock-details';
 import { routerConfig } from '../App';
-import { mockOrganizations } from './mock/mock-organizations';
 import OrganizationDetails from '../components/organization-details/OrganizationDetails';
+import mockDetails from './mock/mock-details';
+import mockOrganizations from './mock/mock-organizations';
 
 describe('Card details component', () => {
   beforeAll(() => {
@@ -34,9 +33,9 @@ describe('Card details component', () => {
 
     await waitFor(async () => {
       const organizationDetailsTitle = await screen.getByRole(
-        'organizationDetailsTitle'
+        'organization-details-title'
       );
-      const detailsParam = await screen.findAllByRole('detailsParam');
+      const detailsParam = await screen.findAllByRole('details-param');
       await expect(organizationDetailsTitle).toHaveTextContent(
         mockDetails.name
       );
@@ -51,20 +50,20 @@ describe('Card details component', () => {
     render(<RouterProvider router={router} />);
 
     const organizationsElements = await screen.findAllByRole(
-      'organizationListItem'
+      'organization-list-item'
     );
     await fireEvent.click(organizationsElements[0]);
 
     await waitFor(async () => {
       const organizationDetailsTitle = await screen.getByRole(
-        'organizationDetailsTitle'
+        'organization-details-title'
       );
       await expect(organizationDetailsTitle).toHaveTextContent(
         mockDetails.name
       );
 
       const organizationDetailsCloseButton = await screen.getByRole(
-        'organizationDetailsCloseButton'
+        'organization-details-close-button'
       );
       await fireEvent.click(organizationDetailsCloseButton);
       await expect(organizationDetailsTitle).not.toBeInTheDocument();

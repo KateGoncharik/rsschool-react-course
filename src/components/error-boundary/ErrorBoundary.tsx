@@ -31,7 +31,9 @@ export default class ErrorBoundary extends Component<
       return (
         <ErrorMessage
           message="Error boundary triggered"
-          callback={() => this.setState({ hasError: false })}
+          callback={() => {
+            this.setState({ hasError: false });
+          }}
         />
       );
     }

@@ -1,16 +1,15 @@
-import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { OrganizationsList } from '../components/organizations-list/OrganizationsList';
-import { mockOrganizations } from './mock/mock-organizations';
+import { vi } from 'vitest';
 import {
   createMemoryRouter,
   MemoryRouter,
   RouterProvider,
 } from 'react-router-dom';
+import { OrganizationsList } from '../components/organizations-list/OrganizationsList';
 import { routerConfig } from '../App';
 import organizationApi from '../api/organization.api';
-import { vi } from 'vitest';
-import { mockDetails } from './mock/mock-details';
+import mockDetails from './mock/mock-details';
+import mockOrganizations from './mock/mock-organizations';
 
 describe('Card component', () => {
   beforeAll(() => {
@@ -35,7 +34,7 @@ describe('Card component', () => {
         />
       </MemoryRouter>
     );
-    const itemsElements = await screen.findAllByRole('organizationListItem');
+    const itemsElements = await screen.findAllByRole('organization-list-item');
     mockOrganizations.organizations.forEach(async (item, index) => {
       expect(itemsElements[index]).toHaveTextContent(item.name);
     });
@@ -48,13 +47,13 @@ describe('Card component', () => {
     render(<RouterProvider router={router} />);
 
     const organizationsElements = await screen.findAllByRole(
-      'organizationListItem'
+      'organization-list-item'
     );
     await fireEvent.click(organizationsElements[0]);
 
     await waitFor(async () => {
       const organizationDetailsTitle = await screen.getByRole(
-        'organizationDetailsTitle'
+        'organization-details-title'
       );
       expect(organizationDetailsTitle).toHaveTextContent(mockDetails.name);
     });

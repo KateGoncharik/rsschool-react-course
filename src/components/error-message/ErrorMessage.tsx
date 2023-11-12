@@ -3,7 +3,7 @@ import './ErrorMessage.scss';
 
 interface IErrorMessageProps {
   message: string;
-  callback?: () => void;
+  callback: () => void;
 }
 
 export default function ErrorMessage({

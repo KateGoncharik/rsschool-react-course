@@ -1,4 +1,4 @@
-export const mockOrganizations = {
+const mockOrganizations = {
   page: {
     pageNumber: 0,
     pageSize: 10,
@@ -174,3 +174,5 @@ export const mockOrganizations = {
     },
   ],
 };
+
+export default mockOrganizations;

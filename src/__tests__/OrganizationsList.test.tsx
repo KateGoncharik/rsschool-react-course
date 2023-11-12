@@ -1,8 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { OrganizationsList } from '../components/organizations-list/OrganizationsList';
-import { mockOrganizations } from './mock/mock-organizations';
 import { MemoryRouter } from 'react-router-dom';
+import { OrganizationsList } from '../components/organizations-list/OrganizationsList';
+import mockOrganizations from './mock/mock-organizations';
 
 describe('Cards list', () => {
   it('Verify that the component renders the specified number of cards', async () => {
@@ -14,7 +13,7 @@ describe('Cards list', () => {
         />
       </MemoryRouter>
     );
-    const itemsElements = await screen.findAllByRole('organizationListItem');
+    const itemsElements = await screen.findAllByRole('organization-list-item');
     expect(itemsElements).toHaveLength(10);
   });
 

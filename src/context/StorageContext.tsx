@@ -4,19 +4,19 @@ import {
   IOrganization,
   IOrganizationsResponse,
 } from '../models/organization.model';
+import { ICommonProps } from '../models/common.model';
 
 const GlobalContext = createContext({});
 
-export const StorageProvider = ({ children }) => {
-  const storage = {
+export function StorageProvider({ children }: ICommonProps) {
+  const storage: IStorage = {
     details: {},
     pages: {},
-    search: {},
   };
   return (
     <GlobalContext.Provider value={storage}>{children}</GlobalContext.Provider>
   );
-};
+}
 
 export const useStorage = (): IStorageMethods => {
   const storage: IStorage = useContext(GlobalContext);
