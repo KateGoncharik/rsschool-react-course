@@ -1,5 +1,6 @@
 import './Search.scss';
 import { FormEvent, useEffect, useState } from 'react';
+import LOCAL_STORAGE_SEARCH_VALUE from '../../constants/common.constant';
 
 export interface ISearchProps {
   updateItemsCallback?: (newSearchValue: string) => void;
@@ -14,6 +15,7 @@ export function Search({ updateItemsCallback, searchValue }: ISearchProps) {
   return (
     <form className="search__form">
       <input
+        role="search-input"
         type="text"
         className="search__form__input"
         onInput={(event: FormEvent) =>
@@ -23,11 +25,12 @@ export function Search({ updateItemsCallback, searchValue }: ISearchProps) {
         placeholder="Type UID. Example: ORMA0000278954"
       />
       <button
+        role="search-button"
         type="submit"
         className="search__form__button button"
         onClick={(event) => {
           event.preventDefault();
-          localStorage.setItem('searchValue', search);
+          localStorage.setItem(LOCAL_STORAGE_SEARCH_VALUE, search);
           updateItemsCallback(search);
         }}
       >

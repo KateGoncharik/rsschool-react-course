@@ -11,6 +11,7 @@ import {
 } from '../../models/organization.model';
 import { Search } from '../search/Search';
 import { useStorage } from '../../context/StorageContext';
+import LOCAL_STORAGE_SEARCH_VALUE from '../../constants/common.constant';
 
 export default function OrganizationsBar() {
   const { setItems, getItems, getDetails, setDetails } = useStorage();
@@ -71,7 +72,7 @@ export default function OrganizationsBar() {
           } = {
             pageNumber: (response.page.pageNumber + 1) as string,
             pageSize: response.page.pageSize as string,
-            search: localStorage.getItem('searchValue') || '',
+            search: localStorage.getItem(LOCAL_STORAGE_SEARCH_VALUE) || '',
           };
           if (prev.get('uid')) {
             newParams.uid = prev.get('uid');
@@ -113,7 +114,7 @@ export default function OrganizationsBar() {
           } = {
             pageNumber: '1',
             pageSize: prev.get('pageSize'),
-            search: localStorage.getItem('searchValue') || '',
+            search: localStorage.getItem(LOCAL_STORAGE_SEARCH_VALUE) || '',
           };
           if (prev.get('uid')) {
             newParams.uid = prev.get('uid');

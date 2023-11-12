@@ -12,18 +12,22 @@ describe('Card details component', () => {
     organizationApi.getItems = vi
       .fn()
       .mockReturnValue(Promise.resolve(mockOrganizations));
-    organizationApi.getDetails = vi
-      .fn()
-      .mockReturnValue(Promise.resolve(mockDetails));
+    organizationApi.getDetails = vi.fn().mockReturnValue(
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(mockDetails);
+        }, 1000);
+      })
+    );
   });
 
   afterAll(() => {
     vi.clearAllMocks();
   });
 
-  it('Make sure the detailed card component correctly displays the detailed card data', async () => {
+  it('Make sure the detailed card component correctly displays the detailed card data. Check that a loading indicator is displayed while fetching data', async () => {
     const router = createMemoryRouter(routerConfig, {
-      initialEntries: ['/details/?uid=ORMA0000278954'],
+      initialEntries: [`/details/?uid=${mockDetails.uid}`],
     });
     render(
       <RouterProvider router={router}>
@@ -32,15 +36,23 @@ describe('Card details component', () => {
     );
 
     await waitFor(async () => {
-      const organizationDetailsTitle = await screen.getByRole(
-        'organization-details-title'
-      );
-      const detailsParam = await screen.findAllByRole('details-param');
-      await expect(organizationDetailsTitle).toHaveTextContent(
-        mockDetails.name
-      );
-      await expect(detailsParam).toHaveLength(13);
+      const loader = await screen.getByRole('loader');
+      expect(loader).toBeInTheDocument();
     });
+
+    await waitFor(
+      async () => {
+        const organizationDetailsTitle = await screen.getByRole(
+          'organization-details-title'
+        );
+        const detailsParam = await screen.findAllByRole('details-param');
+        await expect(organizationDetailsTitle).toHaveTextContent(
+          mockDetails.name
+        );
+        await expect(detailsParam).toHaveLength(13);
+      },
+      { timeout: 1000 }
+    );
   });
 
   it('Ensure that clicking the close button hides the component', async () => {
@@ -54,21 +66,22 @@ describe('Card details component', () => {
     );
     await fireEvent.click(organizationsElements[0]);
 
-    await waitFor(async () => {
-      const organizationDetailsTitle = await screen.getByRole(
-        'organization-details-title'
-      );
-      await expect(organizationDetailsTitle).toHaveTextContent(
-        mockDetails.name
-      );
+    await waitFor(
+      async () => {
+        const organizationDetailsTitle = await screen.getByRole(
+          'organization-details-title'
+        );
+        await expect(organizationDetailsTitle).toHaveTextContent(
+          mockDetails.name
+        );
 
-      const organizationDetailsCloseButton = await screen.getByRole(
-        'organization-details-close-button'
-      );
-      await fireEvent.click(organizationDetailsCloseButton);
-      await expect(organizationDetailsTitle).not.toBeInTheDocument();
-    });
+        const organizationDetailsCloseButton = await screen.getByRole(
+          'organization-details-close-button'
+        );
+        await fireEvent.click(organizationDetailsCloseButton);
+        await expect(organizationDetailsTitle).not.toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
   });
-
-  it('Check that a loading indicator is displayed while fetching data', () => {});
 });
