@@ -7,9 +7,12 @@ import { MemoryRouter } from 'react-router-dom';
 describe('Cards list', () => {
   it('Verify that the component renders the specified number of cards', async () => {
     render(
-        <MemoryRouter>
-          <OrganizationsList loading={false} items={mockOrganizations.organizations} />
-        </MemoryRouter>
+      <MemoryRouter>
+        <OrganizationsList
+          loading={false}
+          items={mockOrganizations.organizations}
+        />
+      </MemoryRouter>
     );
     const itemsElements = await screen.findAllByRole('organizationListItem');
     expect(itemsElements).toHaveLength(10);
@@ -17,9 +20,9 @@ describe('Cards list', () => {
 
   it('Check that an appropriate message is displayed if no cards are present', () => {
     render(
-        <MemoryRouter>
-          <OrganizationsList loading={false} items={[]} />
-        </MemoryRouter>
+      <MemoryRouter>
+        <OrganizationsList loading={false} items={[]} />
+      </MemoryRouter>
     );
     expect(screen.getByText('No items')).toBeInTheDocument();
   });

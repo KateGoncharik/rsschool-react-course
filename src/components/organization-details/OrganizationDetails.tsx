@@ -3,8 +3,11 @@ import { NavLink, useSearchParams } from 'react-router-dom';
 import './OrganizationDetails.scss';
 import organizationApi from '../../api/organization.api';
 import { Loader, LoaderColor } from '../loader/Loader';
+import { IOrganization } from '../../models/organization.model';
+import { useStorage } from '../../context/StorageContext';
 
 export default function OrganizationDetails() {
+  const { getDetails, setDetails } = useStorage();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [organization, setOrganization] = useState(null);
@@ -14,11 +17,15 @@ export default function OrganizationDetails() {
     if (id) {
       setLoading(true);
       try {
-        organizationApi
-          .getDetails(id)
-          .then((response) => {
+        const detailsItem: IOrganization = getDetails(id);
+        (detailsItem
+          ? Promise.resolve(detailsItem)
+          : organizationApi.getDetails(id)
+        )
+          .then((response: IOrganization) => {
             if (response) {
               setOrganization(response);
+              !detailsItem && setDetails(id, response);
             } else {
               throw new Error(`Can not find organization with uid=${id}`);
             }
@@ -75,7 +82,7 @@ export default function OrganizationDetails() {
                 <div role="detailsParam" key={organization.uid + dataKey}>
                   {convertKeyToInfoFormat(dataKey)}-
                   <span
-                      role="detailsValue"
+                    role="detailsValue"
                     className={
                       'organization-details__info' +
                       (organization[dataKey] ? '-true' : '-false')

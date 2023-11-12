@@ -10,8 +10,10 @@ import {
   IPage,
 } from '../../models/organization.model';
 import { Search } from '../search/Search';
+import { useStorage } from '../../context/StorageContext';
 
 export default function OrganizationsBar() {
+  const { setItems, getItems, getDetails, setDetails } = useStorage();
   const [boundaryError, setBoundaryError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [organizations, setOrganizations] = useState([]);
@@ -47,10 +49,18 @@ export default function OrganizationsBar() {
   }, [pageState.pageNumber, pageState.pageSize, searchValue]);
 
   const loadList = (): void => {
-    organizationApi
-      .getItems(pageState.pageNumber, pageState.pageSize)
+    const storageItems: IOrganizationsResponse = getItems(
+      pageState.pageNumber,
+      pageState.pageSize
+    );
+    (storageItems
+      ? Promise.resolve(storageItems)
+      : organizationApi.getItems(pageState.pageNumber, pageState.pageSize)
+    )
       .then((response: IOrganizationsResponse) => {
         setOrganizations(response.organizations);
+        !storageItems &&
+          setItems(response, pageState.pageNumber, pageState.pageSize);
         setPageState(response.page);
         setSearchParams((prev) => {
           const newParams: {
@@ -75,10 +85,14 @@ export default function OrganizationsBar() {
   };
 
   const loadItem = () => {
-    organizationApi
-      .getDetails(searchValue)
+    const savedItem: IOrganization = getDetails(searchValue);
+    (savedItem
+      ? Promise.resolve(savedItem)
+      : organizationApi.getDetails(searchValue)
+    )
       .then((organization: IOrganization) => {
         setOrganizations(organization ? [organization] : []);
+        !savedItem && setDetails(searchValue, organization);
       })
       .catch(() => setOrganizations([]))
       .finally(() => {

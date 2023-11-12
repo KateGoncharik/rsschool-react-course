@@ -2,16 +2,20 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { vi } from 'vitest';
-import organizationApi from "../api/organization.api";
-import { mockDetails } from "./mock/mock-details";
-import { routerConfig } from "../App";
-import { mockOrganizations } from "./mock/mock-organizations";
-import OrganizationDetails from "../components/organization-details/OrganizationDetails";
+import organizationApi from '../api/organization.api';
+import { mockDetails } from './mock/mock-details';
+import { routerConfig } from '../App';
+import { mockOrganizations } from './mock/mock-organizations';
+import OrganizationDetails from '../components/organization-details/OrganizationDetails';
 
 describe('Card details component', () => {
   beforeAll(() => {
-    organizationApi.getItems = vi.fn().mockReturnValue(Promise.resolve(mockOrganizations));
-    organizationApi.getDetails = vi.fn().mockReturnValue(Promise.resolve(mockDetails));
+    organizationApi.getItems = vi
+      .fn()
+      .mockReturnValue(Promise.resolve(mockOrganizations));
+    organizationApi.getDetails = vi
+      .fn()
+      .mockReturnValue(Promise.resolve(mockDetails));
   });
 
   afterAll(() => {
@@ -23,20 +27,18 @@ describe('Card details component', () => {
       initialEntries: ['/details/?uid=ORMA0000278954'],
     });
     render(
-        <RouterProvider router={router}>
-          <OrganizationDetails/>
-        </RouterProvider>
+      <RouterProvider router={router}>
+        <OrganizationDetails />
+      </RouterProvider>
     );
 
     await waitFor(async () => {
       const organizationDetailsTitle = await screen.getByRole(
-          'organizationDetailsTitle'
+        'organizationDetailsTitle'
       );
-      const detailsParam = await screen.findAllByRole(
-          'detailsParam'
-      );
+      const detailsParam = await screen.findAllByRole('detailsParam');
       await expect(organizationDetailsTitle).toHaveTextContent(
-          mockDetails.name,
+        mockDetails.name
       );
       await expect(detailsParam).toHaveLength(13);
     });
@@ -49,27 +51,25 @@ describe('Card details component', () => {
     render(<RouterProvider router={router} />);
 
     const organizationsElements = await screen.findAllByRole(
-        'organizationListItem'
+      'organizationListItem'
     );
     await fireEvent.click(organizationsElements[0]);
 
     await waitFor(async () => {
       const organizationDetailsTitle = await screen.getByRole(
-          'organizationDetailsTitle'
+        'organizationDetailsTitle'
       );
       await expect(organizationDetailsTitle).toHaveTextContent(
-          mockDetails.name
+        mockDetails.name
       );
 
       const organizationDetailsCloseButton = await screen.getByRole(
-          'organizationDetailsCloseButton'
+        'organizationDetailsCloseButton'
       );
       await fireEvent.click(organizationDetailsCloseButton);
       await expect(organizationDetailsTitle).not.toBeInTheDocument();
     });
   });
 
-  it('Check that a loading indicator is displayed while fetching data', () => {
-
-  });
+  it('Check that a loading indicator is displayed while fetching data', () => {});
 });
