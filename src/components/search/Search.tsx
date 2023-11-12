@@ -27,6 +27,7 @@ export function Search({ updateItemsCallback, searchValue }: ISearchProps) {
         className="search__form__button button"
         onClick={(event) => {
           event.preventDefault();
+          localStorage.setItem('searchValue', search);
           updateItemsCallback(search);
         }}
       >

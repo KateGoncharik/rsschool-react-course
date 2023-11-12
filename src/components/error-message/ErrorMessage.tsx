@@ -12,7 +12,9 @@ export default function ErrorMessage({
 }: IErrorMessageProps) {
   return (
     <main className="error-message">
-      <span className="error-message__message">{message}</span>
+      <span data-testid="errorMessage" className="error-message__message">
+        {message}
+      </span>
       <NavLink
         to="/"
         className="error-message__link"

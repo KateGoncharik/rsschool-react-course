@@ -56,7 +56,11 @@ export default function OrganizationDetails() {
         <Loader color={LoaderColor.SALMON} />
       ) : (
         <>
-          <NavLink className="organization-details__cross" to={getLinkUrl()} />
+          <NavLink
+            role="organizationDetailsCloseButton"
+            className="organization-details__cross"
+            to={getLinkUrl()}
+          />
           <div
             role="organizationDetailsTitle"
             className="organization-details__title"
@@ -68,9 +72,10 @@ export default function OrganizationDetails() {
               ['uid', 'name'].includes(dataKey) ? (
                 ''
               ) : (
-                <div key={organization.uid + dataKey}>
+                <div role="detailsParam" key={organization.uid + dataKey}>
                   {convertKeyToInfoFormat(dataKey)}-
                   <span
+                      role="detailsValue"
                     className={
                       'organization-details__info' +
                       (organization[dataKey] ? '-true' : '-false')

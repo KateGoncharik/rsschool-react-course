@@ -119,10 +119,9 @@ export default function OrganizationsBar() {
       <header className="organizations-bar__header">
         <Search
           searchValue={searchValue}
-          updateItemsCallback={(newSearchValue) => {
-            localStorage.setItem('searchValue', newSearchValue);
-            setSearchValue(newSearchValue);
-          }}
+          updateItemsCallback={(newSearchValue) =>
+            setSearchValue(newSearchValue)
+          }
         />
         <button
           type="button"

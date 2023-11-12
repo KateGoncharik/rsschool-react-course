@@ -23,6 +23,7 @@ export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
     <div className="pages-bar">
       <div className="pages-bar__state">
         <button
+          role="nextPageButton"
           type="button"
           disabled={data?.firstPage}
           className="button pages-bar__button"
@@ -32,6 +33,7 @@ export function PagesBar({ loading, data, updatePagesData }: IPagesBarProps) {
         </button>
         <span className="pages-bar__page">{data?.pageNumber + 1}</span>
         <button
+          role="prevPageButton"
           type="button"
           className={
             'button pages-bar__button' + (data?.lastPage ? ' _disable' : '')
